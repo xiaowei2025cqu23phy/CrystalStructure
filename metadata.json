@@ -1,0 +1,5 @@
+{
+  "name": "CrystalStructure Lab",
+  "description": "An interactive 3D crystal structure visualizer and crystallographic calculator.",
+  "requestFramePermissions": []
+}
