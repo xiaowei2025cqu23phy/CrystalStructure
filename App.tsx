@@ -17,12 +17,27 @@ const App: React.FC = () => {
     alpha: 90, beta: 90, gamma: 90
   });
   const [element, setElement] = useState<string>('Cu');
+  const [secondaryElement, setSecondaryElement] = useState<string | undefined>(undefined);
   const [showUnitCell, setShowUnitCell] = useState(true);
   const [showBonds, setShowBonds] = useState(true);
+  const [bondThreshold, setBondThreshold] = useState<number | undefined>(undefined);
 
-  const { atoms, bonds } = useMemo(() => 
-    generateCrystal(type, params, element), 
-    [type, params, element]
+  const handleTypeChange = (newType: LatticeType) => {
+    setType(newType);
+    setBondThreshold(undefined); // Reset override on type change
+    // Set default parameters based on lattice type
+    if (newType === 'HCP' || newType === 'Wurtzite') {
+      setParams(prev => ({ ...prev, gamma: 120, a: 3.2, b: 3.2, c: 5.2 }));
+    } else {
+      setParams(prev => ({ ...prev, alpha: 90, beta: 90, gamma: 90 }));
+    }
+  };
+
+  const [exportFn, setExportFn] = useState<((type: 'png' | 'svg') => void) | null>(null);
+
+  const { atoms, bonds, symmetry } = useMemo(() => 
+    generateCrystal(type, params, element, secondaryElement, bondThreshold), 
+    [type, params, element, secondaryElement, bondThreshold]
   );
 
   return (
@@ -48,18 +63,29 @@ const App: React.FC = () => {
             <a href="#" className="hover:text-nobel-gold transition-colors flex items-center gap-2">
               <Github size={16} /> Source
             </a>
-            <button className="px-5 py-2 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all shadow-md hover:shadow-lg flex items-center gap-2">
-              <Share2 size={16} /> Export Data
-            </button>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => exportFn?.('png')}
+                className="px-4 py-2 bg-stone-100 text-stone-700 rounded-full hover:bg-stone-200 transition-all text-xs font-bold flex items-center gap-2"
+              >
+                PNG
+              </button>
+              <button 
+                onClick={() => exportFn?.('svg')}
+                className="px-4 py-2 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all text-xs font-bold shadow-md hover:shadow-lg flex items-center gap-2"
+              >
+                SVG
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="pt-28 pb-12 container mx-auto px-6 h-[calc(100vh-2rem)] flex flex-col md:flex-row gap-8">
+      <main className="pt-28 pb-12 container mx-auto px-6 h-[calc(100vh-2rem)] flex flex-col lg:flex-row gap-8">
         
         {/* Left: 3D Viewer */}
-        <div className="flex-1 min-h-[400px] md:min-h-0 relative group">
+        <div className="flex-[2] min-h-[400px] lg:min-h-0 relative group">
           <div className="absolute top-6 left-6 z-10">
             <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl border border-stone-200 shadow-sm">
               <div className="flex items-center gap-2">
@@ -73,8 +99,10 @@ const App: React.FC = () => {
             atoms={atoms} 
             bonds={bonds}
             params={params} 
+            type={type}
             showBonds={showBonds} 
             showUnitCell={showUnitCell} 
+            onExportReady={setExportFn}
           />
           
           {/* Overlay Info */}
@@ -91,13 +119,17 @@ const App: React.FC = () => {
         </div>
 
         {/* Right: Controls */}
-        <aside className="w-full md:w-96 shrink-0">
+        <aside className="w-full lg:w-[400px] shrink-0">
           <ControlPanel 
-            type={type} setType={setType}
+            type={type} setType={handleTypeChange}
             params={params} setParams={setParams}
             element={element} setElement={setElement}
+            secondaryElement={secondaryElement} setSecondaryElement={setSecondaryElement}
             showUnitCell={showUnitCell} setShowUnitCell={setShowUnitCell}
             showBonds={showBonds} setShowBonds={setShowBonds}
+            bondThreshold={bondThreshold} setBondThreshold={setBondThreshold}
+            symmetry={symmetry}
+            onExport={exportFn}
           />
         </aside>
       </main>

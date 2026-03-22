@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type LatticeType = 'SC' | 'BCC' | 'FCC' | 'Diamond' | 'HCP' | 'NaCl' | 'CsCl' | 'ZincBlende';
+export type LatticeType = 'SC' | 'BCC' | 'FCC' | 'Diamond' | 'HCP' | 'NaCl' | 'CsCl' | 'ZincBlende' | 'Wurtzite' | 'P4' | 'S8' | 'P4S3' | 'P4S10' | 'C60' | 'H2O' | 'CH4';
 
 export interface LatticeParams {
   a: number;
@@ -27,11 +27,18 @@ export interface Bond {
   to: string;
 }
 
+export interface SymmetryOperation {
+  name: string;
+  matrix: number[][]; // 3x3 matrix
+  translation: [number, number, number];
+}
+
 export interface CrystalData {
   type: LatticeType;
   params: LatticeParams;
   atoms: Atom[];
   bonds: Bond[];
+  symmetry: SymmetryOperation[];
 }
 
 export interface ElementInfo {
@@ -40,4 +47,12 @@ export interface ElementInfo {
   radius: number;
   color: string;
   atomicWeight: number;
+}
+
+export interface MaterialPreset {
+  name: string;
+  type: LatticeType;
+  element: string;
+  secondaryElement?: string;
+  params: LatticeParams;
 }
