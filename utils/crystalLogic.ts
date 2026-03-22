@@ -6,123 +6,123 @@
 import { LatticeType, LatticeParams, Atom, Bond, ElementInfo, SymmetryOperation } from '../types';
 
 export const ELEMENTS: Record<string, ElementInfo> = {
-  'H': { symbol: 'H', name: 'Hydrogen', radius: 0.37, color: '#FFFFFF', atomicWeight: 1.008 },
-  'He': { symbol: 'He', name: 'Helium', radius: 0.32, color: '#D9FFFF', atomicWeight: 4.0026 },
-  'Li': { symbol: 'Li', name: 'Lithium', radius: 1.34, color: '#CC80FF', atomicWeight: 6.94 },
-  'Be': { symbol: 'Be', name: 'Beryllium', radius: 0.90, color: '#C2FF00', atomicWeight: 9.0122 },
-  'B': { symbol: 'B', name: 'Boron', radius: 0.82, color: '#FFB5B5', atomicWeight: 10.81 },
-  'C': { symbol: 'C', name: 'Carbon', radius: 0.77, color: '#909090', atomicWeight: 12.011 },
-  'N': { symbol: 'N', name: 'Nitrogen', radius: 0.75, color: '#3050F8', atomicWeight: 14.007 },
-  'O': { symbol: 'O', name: 'Oxygen', radius: 0.73, color: '#FF0D0D', atomicWeight: 15.999 },
-  'F': { symbol: 'F', name: 'Fluorine', radius: 0.71, color: '#90E050', atomicWeight: 18.998 },
-  'Ne': { symbol: 'Ne', name: 'Neon', radius: 0.69, color: '#B3E3F5', atomicWeight: 20.180 },
-  'Na': { symbol: 'Na', name: 'Sodium', radius: 1.54, color: '#AB5CF2', atomicWeight: 22.990 },
-  'Mg': { symbol: 'Mg', name: 'Magnesium', radius: 1.30, color: '#8AFF00', atomicWeight: 24.305 },
-  'Al': { symbol: 'Al', name: 'Aluminum', radius: 1.18, color: '#BFA6A6', atomicWeight: 26.982 },
-  'Si': { symbol: 'Si', name: 'Silicon', radius: 1.11, color: '#F0C8A0', atomicWeight: 28.085 },
-  'P': { symbol: 'P', name: 'Phosphorus', radius: 1.06, color: '#FF8000', atomicWeight: 30.974 },
-  'S': { symbol: 'S', name: 'Sulfur', radius: 1.02, color: '#FFFF30', atomicWeight: 32.06 },
-  'Cl': { symbol: 'Cl', name: 'Chlorine', radius: 0.99, color: '#1FF01F', atomicWeight: 35.45 },
-  'Ar': { symbol: 'Ar', name: 'Argon', radius: 0.97, color: '#80D1E3', atomicWeight: 39.948 },
-  'K': { symbol: 'K', name: 'Potassium', radius: 1.96, color: '#8F40D4', atomicWeight: 39.098 },
-  'Ca': { symbol: 'Ca', name: 'Calcium', radius: 1.74, color: '#3DFF00', atomicWeight: 40.078 },
-  'Fe': { symbol: 'Fe', name: 'Iron', radius: 1.25, color: '#E06633', atomicWeight: 55.845 },
-  'Cu': { symbol: 'Cu', name: 'Copper', radius: 1.28, color: '#C88033', atomicWeight: 63.546 },
-  'Au': { symbol: 'Au', name: 'Gold', radius: 1.44, color: '#FFD123', atomicWeight: 196.97 },
-  'Ag': { symbol: 'Ag', name: 'Silver', radius: 1.44, color: '#C0C0C0', atomicWeight: 107.87 },
-  'Pt': { symbol: 'Pt', name: 'Platinum', radius: 1.39, color: '#D0D0E0', atomicWeight: 195.08 },
-  'W': { symbol: 'W', name: 'Tungsten', radius: 1.37, color: '#2196F3', atomicWeight: 183.84 },
-  'Cr': { symbol: 'Cr', name: 'Chromium', radius: 1.25, color: '#8A99B2', atomicWeight: 51.996 },
-  'Mo': { symbol: 'Mo', name: 'Molybdenum', radius: 1.36, color: '#545B68', atomicWeight: 95.95 },
-  'Ta': { symbol: 'Ta', name: 'Tantalum', radius: 1.43, color: '#4DA6FF', atomicWeight: 180.95 },
-  'Ni': { symbol: 'Ni', name: 'Nickel', radius: 1.24, color: '#50EBAD', atomicWeight: 58.693 },
-  'Pb': { symbol: 'Pb', name: 'Lead', radius: 1.75, color: '#575961', atomicWeight: 207.2 },
-  'Ge': { symbol: 'Ge', name: 'Germanium', radius: 1.22, color: '#668F8F', atomicWeight: 72.63 },
-  'Sn': { symbol: 'Sn', name: 'Tin', radius: 1.40, color: '#667878', atomicWeight: 118.71 },
-  'Zn': { symbol: 'Zn', name: 'Zinc', radius: 1.31, color: '#7D80B2', atomicWeight: 65.38 },
-  'Ti': { symbol: 'Ti', name: 'Titanium', radius: 1.45, color: '#BFC2C7', atomicWeight: 47.867 },
-  'Cd': { symbol: 'Cd', name: 'Cadmium', radius: 1.48, color: '#FFD98F', atomicWeight: 112.41 },
-  'Ga': { symbol: 'Ga', name: 'Gallium', radius: 1.22, color: '#C28F8F', atomicWeight: 69.723 },
-  'As': { symbol: 'As', name: 'Arsenic', radius: 1.19, color: '#BD80FF', atomicWeight: 74.922 },
-  'In': { symbol: 'In', name: 'Indium', radius: 1.44, color: '#A67573', atomicWeight: 114.82 },
-  'Sb': { symbol: 'Sb', name: 'Antimony', radius: 1.38, color: '#9E63B5', atomicWeight: 121.76 },
-  'Cs': { symbol: 'Cs', name: 'Cesium', radius: 2.65, color: '#57178F', atomicWeight: 132.91 },
-  'Tl': { symbol: 'Tl', name: 'Thallium', radius: 1.70, color: '#A6544D', atomicWeight: 204.38 },
-  'Po': { symbol: 'Po', name: 'Polonium', radius: 1.68, color: '#AB5C00', atomicWeight: 209 },
-  'Br': { symbol: 'Br', name: 'Bromine', radius: 1.14, color: '#A62929', atomicWeight: 79.904 },
-  'I': { symbol: 'I', name: 'Iodine', radius: 1.33, color: '#940094', atomicWeight: 126.90 },
+  'H': { symbol: 'H', name: '氢', radius: 0.37, color: '#FFFFFF', atomicWeight: 1.008 },
+  'He': { symbol: 'He', name: '氦', radius: 0.32, color: '#D9FFFF', atomicWeight: 4.0026 },
+  'Li': { symbol: 'Li', name: '锂', radius: 1.34, color: '#CC80FF', atomicWeight: 6.94 },
+  'Be': { symbol: 'Be', name: '铍', radius: 0.90, color: '#C2FF00', atomicWeight: 9.0122 },
+  'B': { symbol: 'B', name: '硼', radius: 0.82, color: '#FFB5B5', atomicWeight: 10.81 },
+  'C': { symbol: 'C', name: '碳', radius: 0.77, color: '#909090', atomicWeight: 12.011 },
+  'N': { symbol: 'N', name: '氮', radius: 0.75, color: '#3050F8', atomicWeight: 14.007 },
+  'O': { symbol: 'O', name: '氧', radius: 0.73, color: '#FF0D0D', atomicWeight: 15.999 },
+  'F': { symbol: 'F', name: '氟', radius: 0.71, color: '#90E050', atomicWeight: 18.998 },
+  'Ne': { symbol: 'Ne', name: '氖', radius: 0.69, color: '#B3E3F5', atomicWeight: 20.180 },
+  'Na': { symbol: 'Na', name: '钠', radius: 1.54, color: '#AB5CF2', atomicWeight: 22.990 },
+  'Mg': { symbol: 'Mg', name: '镁', radius: 1.30, color: '#8AFF00', atomicWeight: 24.305 },
+  'Al': { symbol: 'Al', name: '铝', radius: 1.18, color: '#BFA6A6', atomicWeight: 26.982 },
+  'Si': { symbol: 'Si', name: '硅', radius: 1.11, color: '#F0C8A0', atomicWeight: 28.085 },
+  'P': { symbol: 'P', name: '磷', radius: 1.06, color: '#FF8000', atomicWeight: 30.974 },
+  'S': { symbol: 'S', name: '硫', radius: 1.02, color: '#FFFF30', atomicWeight: 32.06 },
+  'Cl': { symbol: 'Cl', name: '氯', radius: 0.99, color: '#1FF01F', atomicWeight: 35.45 },
+  'Ar': { symbol: 'Ar', name: '氩', radius: 0.97, color: '#80D1E3', atomicWeight: 39.948 },
+  'K': { symbol: 'K', name: '钾', radius: 1.96, color: '#8F40D4', atomicWeight: 39.098 },
+  'Ca': { symbol: 'Ca', name: '钙', radius: 1.74, color: '#3DFF00', atomicWeight: 40.078 },
+  'Fe': { symbol: 'Fe', name: '铁', radius: 1.25, color: '#E06633', atomicWeight: 55.845 },
+  'Cu': { symbol: 'Cu', name: '铜', radius: 1.28, color: '#C88033', atomicWeight: 63.546 },
+  'Au': { symbol: 'Au', name: '金', radius: 1.44, color: '#FFD123', atomicWeight: 196.97 },
+  'Ag': { symbol: 'Ag', name: '银', radius: 1.44, color: '#C0C0C0', atomicWeight: 107.87 },
+  'Pt': { symbol: 'Pt', name: '铂', radius: 1.39, color: '#D0D0E0', atomicWeight: 195.08 },
+  'W': { symbol: 'W', name: '钨', radius: 1.37, color: '#2196F3', atomicWeight: 183.84 },
+  'Cr': { symbol: 'Cr', name: '铬', radius: 1.25, color: '#8A99B2', atomicWeight: 51.996 },
+  'Mo': { symbol: 'Mo', name: '钼', radius: 1.36, color: '#545B68', atomicWeight: 95.95 },
+  'Ta': { symbol: 'Ta', name: '钽', radius: 1.43, color: '#4DA6FF', atomicWeight: 180.95 },
+  'Ni': { symbol: 'Ni', name: '镍', radius: 1.24, color: '#50EBAD', atomicWeight: 58.693 },
+  'Pb': { symbol: 'Pb', name: '铅', radius: 1.75, color: '#575961', atomicWeight: 207.2 },
+  'Ge': { symbol: 'Ge', name: '锗', radius: 1.22, color: '#668F8F', atomicWeight: 72.63 },
+  'Sn': { symbol: 'Sn', name: '锡', radius: 1.40, color: '#667878', atomicWeight: 118.71 },
+  'Zn': { symbol: 'Zn', name: '锌', radius: 1.31, color: '#7D80B2', atomicWeight: 65.38 },
+  'Ti': { symbol: 'Ti', name: '钛', radius: 1.45, color: '#BFC2C7', atomicWeight: 47.867 },
+  'Cd': { symbol: 'Cd', name: '镉', radius: 1.48, color: '#FFD98F', atomicWeight: 112.41 },
+  'Ga': { symbol: 'Ga', name: '镓', radius: 1.22, color: '#C28F8F', atomicWeight: 69.723 },
+  'As': { symbol: 'As', name: '砷', radius: 1.19, color: '#BD80FF', atomicWeight: 74.922 },
+  'In': { symbol: 'In', name: '铟', radius: 1.44, color: '#A67573', atomicWeight: 114.82 },
+  'Sb': { symbol: 'Sb', name: '锑', radius: 1.38, color: '#9E63B5', atomicWeight: 121.76 },
+  'Cs': { symbol: 'Cs', name: '铯', radius: 2.65, color: '#57178F', atomicWeight: 132.91 },
+  'Tl': { symbol: 'Tl', name: '铊', radius: 1.70, color: '#A6544D', atomicWeight: 204.38 },
+  'Po': { symbol: 'Po', name: '钋', radius: 1.68, color: '#AB5C00', atomicWeight: 209 },
+  'Br': { symbol: 'Br', name: '溴', radius: 1.14, color: '#A62929', atomicWeight: 79.904 },
+  'I': { symbol: 'I', name: '碘', radius: 1.33, color: '#940094', atomicWeight: 126.90 },
 };
 
 import { MaterialPreset } from '../types';
 
 export const MATERIAL_PRESETS: MaterialPreset[] = [
   // SC
-  { name: 'Polonium (α-Po)', type: 'SC', element: 'Po', params: { a: 3.35, b: 3.35, c: 3.35, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '钋 (α-Po)', type: 'SC', element: 'Po', params: { a: 3.35, b: 3.35, c: 3.35, alpha: 90, beta: 90, gamma: 90 } },
   
   // BCC
-  { name: 'Iron (α-Fe)', type: 'BCC', element: 'Fe', params: { a: 2.866, b: 2.866, c: 2.866, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Tungsten (W)', type: 'BCC', element: 'W', params: { a: 3.16, b: 3.16, c: 3.16, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Chromium (Cr)', type: 'BCC', element: 'Cr', params: { a: 2.88, b: 2.88, c: 2.88, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Molybdenum (Mo)', type: 'BCC', element: 'Mo', params: { a: 3.15, b: 3.15, c: 3.15, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Tantalum (Ta)', type: 'BCC', element: 'Ta', params: { a: 3.30, b: 3.30, c: 3.30, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Sodium (Na)', type: 'BCC', element: 'Na', params: { a: 4.23, b: 4.23, c: 4.23, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Potassium (K)', type: 'BCC', element: 'K', params: { a: 5.23, b: 5.23, c: 5.23, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '铁 (α-Fe)', type: 'BCC', element: 'Fe', params: { a: 2.866, b: 2.866, c: 2.866, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '钨 (W)', type: 'BCC', element: 'W', params: { a: 3.16, b: 3.16, c: 3.16, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '铬 (Cr)', type: 'BCC', element: 'Cr', params: { a: 2.88, b: 2.88, c: 2.88, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '钼 (Mo)', type: 'BCC', element: 'Mo', params: { a: 3.15, b: 3.15, c: 3.15, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '钽 (Ta)', type: 'BCC', element: 'Ta', params: { a: 3.30, b: 3.30, c: 3.30, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '钠 (Na)', type: 'BCC', element: 'Na', params: { a: 4.23, b: 4.23, c: 4.23, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '钾 (K)', type: 'BCC', element: 'K', params: { a: 5.23, b: 5.23, c: 5.23, alpha: 90, beta: 90, gamma: 90 } },
 
   // FCC
-  { name: 'Copper (Cu)', type: 'FCC', element: 'Cu', params: { a: 3.61, b: 3.61, c: 3.61, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Aluminum (Al)', type: 'FCC', element: 'Al', params: { a: 4.05, b: 4.05, c: 4.05, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Gold (Au)', type: 'FCC', element: 'Au', params: { a: 4.08, b: 4.08, c: 4.08, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Silver (Ag)', type: 'FCC', element: 'Ag', params: { a: 4.09, b: 4.09, c: 4.09, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Platinum (Pt)', type: 'FCC', element: 'Pt', params: { a: 3.92, b: 3.92, c: 3.92, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Nickel (Ni)', type: 'FCC', element: 'Ni', params: { a: 3.52, b: 3.52, c: 3.52, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Lead (Pb)', type: 'FCC', element: 'Pb', params: { a: 4.95, b: 4.95, c: 4.95, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '铜 (Cu)', type: 'FCC', element: 'Cu', params: { a: 3.61, b: 3.61, c: 3.61, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '铝 (Al)', type: 'FCC', element: 'Al', params: { a: 4.05, b: 4.05, c: 4.05, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '金 (Au)', type: 'FCC', element: 'Au', params: { a: 4.08, b: 4.08, c: 4.08, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '银 (Ag)', type: 'FCC', element: 'Ag', params: { a: 4.09, b: 4.09, c: 4.09, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '铂 (Pt)', type: 'FCC', element: 'Pt', params: { a: 3.92, b: 3.92, c: 3.92, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '镍 (Ni)', type: 'FCC', element: 'Ni', params: { a: 3.52, b: 3.52, c: 3.52, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '铅 (Pb)', type: 'FCC', element: 'Pb', params: { a: 4.95, b: 4.95, c: 4.95, alpha: 90, beta: 90, gamma: 90 } },
 
   // Diamond
-  { name: 'Diamond (C)', type: 'Diamond', element: 'C', params: { a: 3.567, b: 3.567, c: 3.567, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Silicon (Si)', type: 'Diamond', element: 'Si', params: { a: 5.43, b: 5.43, c: 5.43, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Germanium (Ge)', type: 'Diamond', element: 'Ge', params: { a: 5.66, b: 5.66, c: 5.66, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Tin (α-Sn)', type: 'Diamond', element: 'Sn', params: { a: 6.49, b: 6.49, c: 6.49, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '金刚石 (C)', type: 'Diamond', element: 'C', params: { a: 3.567, b: 3.567, c: 3.567, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '硅 (Si)', type: 'Diamond', element: 'Si', params: { a: 5.43, b: 5.43, c: 5.43, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '锗 (Ge)', type: 'Diamond', element: 'Ge', params: { a: 5.66, b: 5.66, c: 5.66, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '锡 (α-Sn)', type: 'Diamond', element: 'Sn', params: { a: 6.49, b: 6.49, c: 6.49, alpha: 90, beta: 90, gamma: 90 } },
 
   // NaCl
-  { name: 'Sodium Chloride (NaCl)', type: 'NaCl', element: 'Na', secondaryElement: 'Cl', params: { a: 5.64, b: 5.64, c: 5.64, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Potassium Chloride (KCl)', type: 'NaCl', element: 'K', secondaryElement: 'Cl', params: { a: 6.29, b: 6.29, c: 6.29, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Lithium Fluoride (LiF)', type: 'NaCl', element: 'Li', secondaryElement: 'F', params: { a: 4.02, b: 4.02, c: 4.02, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Magnesium Oxide (MgO)', type: 'NaCl', element: 'Mg', secondaryElement: 'O', params: { a: 4.21, b: 4.21, c: 4.21, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Silver Chloride (AgCl)', type: 'NaCl', element: 'Ag', secondaryElement: 'Cl', params: { a: 5.55, b: 5.55, c: 5.55, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '氯化钠 (NaCl)', type: 'NaCl', element: 'Na', secondaryElement: 'Cl', params: { a: 5.64, b: 5.64, c: 5.64, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '氯化钾 (KCl)', type: 'NaCl', element: 'K', secondaryElement: 'Cl', params: { a: 6.29, b: 6.29, c: 6.29, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '氟化锂 (LiF)', type: 'NaCl', element: 'Li', secondaryElement: 'F', params: { a: 4.02, b: 4.02, c: 4.02, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '氧化镁 (MgO)', type: 'NaCl', element: 'Mg', secondaryElement: 'O', params: { a: 4.21, b: 4.21, c: 4.21, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '氯化银 (AgCl)', type: 'NaCl', element: 'Ag', secondaryElement: 'Cl', params: { a: 5.55, b: 5.55, c: 5.55, alpha: 90, beta: 90, gamma: 90 } },
 
   // CsCl
-  { name: 'Cesium Chloride (CsCl)', type: 'CsCl', element: 'Cs', secondaryElement: 'Cl', params: { a: 4.12, b: 4.12, c: 4.12, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Cesium Bromide (CsBr)', type: 'CsCl', element: 'Cs', secondaryElement: 'Br', params: { a: 4.29, b: 4.29, c: 4.29, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Cesium Iodide (CsI)', type: 'CsCl', element: 'Cs', secondaryElement: 'I', params: { a: 4.57, b: 4.57, c: 4.57, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Thallium Chloride (TlCl)', type: 'CsCl', element: 'Tl', secondaryElement: 'Cl', params: { a: 3.83, b: 3.83, c: 3.83, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '氯化铯 (CsCl)', type: 'CsCl', element: 'Cs', secondaryElement: 'Cl', params: { a: 4.12, b: 4.12, c: 4.12, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '溴化铯 (CsBr)', type: 'CsCl', element: 'Cs', secondaryElement: 'Br', params: { a: 4.29, b: 4.29, c: 4.29, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '碘化铯 (CsI)', type: 'CsCl', element: 'Cs', secondaryElement: 'I', params: { a: 4.57, b: 4.57, c: 4.57, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '氯化铊 (TlCl)', type: 'CsCl', element: 'Tl', secondaryElement: 'Cl', params: { a: 3.83, b: 3.83, c: 3.83, alpha: 90, beta: 90, gamma: 90 } },
 
   // HCP
-  { name: 'Magnesium (Mg)', type: 'HCP', element: 'Mg', params: { a: 3.21, b: 3.21, c: 5.21, alpha: 90, beta: 90, gamma: 120 } },
-  { name: 'Zinc (Zn)', type: 'HCP', element: 'Zn', params: { a: 2.66, b: 2.66, c: 4.95, alpha: 90, beta: 90, gamma: 120 } },
-  { name: 'Titanium (α-Ti)', type: 'HCP', element: 'Ti', params: { a: 2.95, b: 2.95, c: 4.68, alpha: 90, beta: 90, gamma: 120 } },
-  { name: 'Beryllium (Be)', type: 'HCP', element: 'Be', params: { a: 2.29, b: 2.29, c: 3.58, alpha: 90, beta: 90, gamma: 120 } },
-  { name: 'Cadmium (Cd)', type: 'HCP', element: 'Cd', params: { a: 2.98, b: 2.98, c: 5.62, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '镁 (Mg)', type: 'HCP', element: 'Mg', params: { a: 3.21, b: 3.21, c: 5.21, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '锌 (Zn)', type: 'HCP', element: 'Zn', params: { a: 2.66, b: 2.66, c: 4.95, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '钛 (α-Ti)', type: 'HCP', element: 'Ti', params: { a: 2.95, b: 2.95, c: 4.68, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '铍 (Be)', type: 'HCP', element: 'Be', params: { a: 2.29, b: 2.29, c: 3.58, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '镉 (Cd)', type: 'HCP', element: 'Cd', params: { a: 2.98, b: 2.98, c: 5.62, alpha: 90, beta: 90, gamma: 120 } },
 
   // ZincBlende
-  { name: 'Zinc Sulfide (Sphalerite)', type: 'ZincBlende', element: 'S', secondaryElement: 'Zn', params: { a: 5.41, b: 5.41, c: 5.41, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Gallium Arsenide (GaAs)', type: 'ZincBlende', element: 'Ga', secondaryElement: 'As', params: { a: 5.65, b: 5.65, c: 5.65, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Indium Phosphide (InP)', type: 'ZincBlende', element: 'In', secondaryElement: 'P', params: { a: 5.87, b: 5.87, c: 5.87, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Silicon Carbide (3C-SiC)', type: 'ZincBlende', element: 'Si', secondaryElement: 'C', params: { a: 4.36, b: 4.36, c: 4.36, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '硫化锌 (闪锌矿)', type: 'ZincBlende', element: 'S', secondaryElement: 'Zn', params: { a: 5.41, b: 5.41, c: 5.41, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '砷化镓 (GaAs)', type: 'ZincBlende', element: 'Ga', secondaryElement: 'As', params: { a: 5.65, b: 5.65, c: 5.65, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '磷化铟 (InP)', type: 'ZincBlende', element: 'In', secondaryElement: 'P', params: { a: 5.87, b: 5.87, c: 5.87, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '碳化硅 (3C-SiC)', type: 'ZincBlende', element: 'Si', secondaryElement: 'C', params: { a: 4.36, b: 4.36, c: 4.36, alpha: 90, beta: 90, gamma: 90 } },
 
   // Wurtzite
-  { name: 'Zinc Sulfide (Wurtzite)', type: 'Wurtzite', element: 'S', secondaryElement: 'Zn', params: { a: 3.82, b: 3.82, c: 6.26, alpha: 90, beta: 90, gamma: 120 } },
-  { name: 'Gallium Nitride (GaN)', type: 'Wurtzite', element: 'Ga', secondaryElement: 'N', params: { a: 3.19, b: 3.19, c: 5.19, alpha: 90, beta: 90, gamma: 120 } },
-  { name: 'Aluminum Nitride (AlN)', type: 'Wurtzite', element: 'Al', secondaryElement: 'N', params: { a: 3.11, b: 3.11, c: 4.98, alpha: 90, beta: 90, gamma: 120 } },
-  { name: 'Zinc Oxide (ZnO)', type: 'Wurtzite', element: 'Zn', secondaryElement: 'O', params: { a: 3.25, b: 3.25, c: 5.21, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '硫化锌 (纤锌矿)', type: 'Wurtzite', element: 'S', secondaryElement: 'Zn', params: { a: 3.82, b: 3.82, c: 6.26, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '氮化镓 (GaN)', type: 'Wurtzite', element: 'Ga', secondaryElement: 'N', params: { a: 3.19, b: 3.19, c: 5.19, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '氮化铝 (AlN)', type: 'Wurtzite', element: 'Al', secondaryElement: 'N', params: { a: 3.11, b: 3.11, c: 4.98, alpha: 90, beta: 90, gamma: 120 } },
+  { name: '氧化锌 (ZnO)', type: 'Wurtzite', element: 'Zn', secondaryElement: 'O', params: { a: 3.25, b: 3.25, c: 5.21, alpha: 90, beta: 90, gamma: 120 } },
 
   // Molecular
-  { name: 'White Phosphorus (P4)', type: 'P4', element: 'P', params: { a: 2.2, b: 2.2, c: 2.2, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Sulfur Ring (S8)', type: 'S8', element: 'S', params: { a: 3.0, b: 3.0, c: 3.0, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Phosphorus Sesquisulfide (P4S3)', type: 'P4S3', element: 'P', secondaryElement: 'S', params: { a: 3.5, b: 3.5, c: 3.5, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Phosphorus Pentasulfide (P4S10)', type: 'P4S10', element: 'P', secondaryElement: 'S', params: { a: 4.5, b: 4.5, c: 4.5, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Buckminsterfullerene (C60)', type: 'C60', element: 'C', params: { a: 7.0, b: 7.0, c: 7.0, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Water (H2O)', type: 'H2O', element: 'O', secondaryElement: 'H', params: { a: 1.0, b: 1.0, c: 1.0, alpha: 90, beta: 90, gamma: 90 } },
-  { name: 'Methane (CH4)', type: 'CH4', element: 'C', secondaryElement: 'H', params: { a: 1.5, b: 1.5, c: 1.5, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '白磷 (P4)', type: 'P4', element: 'P', params: { a: 2.2, b: 2.2, c: 2.2, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '硫环 (S8)', type: 'S8', element: 'S', params: { a: 3.0, b: 3.0, c: 3.0, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '三硫化四磷 (P4S3)', type: 'P4S3', element: 'P', secondaryElement: 'S', params: { a: 3.5, b: 3.5, c: 3.5, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '五硫化二磷 (P4S10)', type: 'P4S10', element: 'P', secondaryElement: 'S', params: { a: 4.5, b: 4.5, c: 4.5, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '富勒烯 (C60)', type: 'C60', element: 'C', params: { a: 7.0, b: 7.0, c: 7.0, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '水 (H2O)', type: 'H2O', element: 'O', secondaryElement: 'H', params: { a: 1.0, b: 1.0, c: 1.0, alpha: 90, beta: 90, gamma: 90 } },
+  { name: '甲烷 (CH4)', type: 'CH4', element: 'C', secondaryElement: 'H', params: { a: 1.5, b: 1.5, c: 1.5, alpha: 90, beta: 90, gamma: 90 } },
 ];
 
 export const LATTICE_COLORS: Record<LatticeType, string> = {
@@ -146,41 +146,136 @@ export const LATTICE_COLORS: Record<LatticeType, string> = {
 
 export const generateSymmetryOperations = (type: LatticeType): SymmetryOperation[] => {
   const ops: SymmetryOperation[] = [
-    { name: 'Identity (E)', matrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]], translation: [0, 0, 0] }
+    { 
+      name: '恒等变换 (E)', 
+      description: '保持晶体结构不变的最基本操作。',
+      matrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    }
   ];
 
   if (['SC', 'BCC', 'FCC', 'Diamond', 'NaCl', 'CsCl', 'ZincBlende', 'P4', 'CH4', 'C60'].includes(type)) {
     // Cubic point group Oh (m-3m) - representative operations (or subgroups for molecules)
-    ops.push({ name: 'Inversion (i)', matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, -1]], translation: [0, 0, 0] });
+    ops.push({ 
+      name: '反演中心 (i)', 
+      description: '通过中心点进行镜像对称，坐标 (x,y,z) 变为 (-x,-y,-z)。',
+      matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, -1]], 
+      translation: [0, 0, 0] 
+    });
     
     // 4-fold rotations around axes
-    ops.push({ name: 'C4 (x)', matrix: [[1, 0, 0], [0, 0, -1], [0, 1, 0]], translation: [0, 0, 0] });
-    ops.push({ name: 'C4 (y)', matrix: [[0, 0, 1], [0, 1, 0], [-1, 0, 0]], translation: [0, 0, 0] });
-    ops.push({ name: 'C4 (z)', matrix: [[0, -1, 0], [1, 0, 0], [0, 0, 1]], translation: [0, 0, 0] });
+    ops.push({ 
+      name: '4次旋转轴 (x)', 
+      description: '绕 x 轴旋转 90 度的操作。',
+      matrix: [[1, 0, 0], [0, 0, -1], [0, 1, 0]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '4次旋转轴 (y)', 
+      description: '绕 y 轴旋转 90 度的操作。',
+      matrix: [[0, 0, 1], [0, 1, 0], [-1, 0, 0]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '4次旋转轴 (z)', 
+      description: '绕 z 轴旋转 90 度的操作。',
+      matrix: [[0, -1, 0], [1, 0, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
     
     // 2-fold rotations around axes
-    ops.push({ name: 'C2 (x)', matrix: [[1, 0, 0], [0, -1, 0], [0, 0, -1]], translation: [0, 0, 0] });
-    ops.push({ name: 'C2 (y)', matrix: [[-1, 0, 0], [0, 1, 0], [0, 0, -1]], translation: [0, 0, 0] });
-    ops.push({ name: 'C2 (z)', matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, 1]], translation: [0, 0, 0] });
+    ops.push({ 
+      name: '2次旋转轴 (x)', 
+      description: '绕 x 轴旋转 180 度的操作。',
+      matrix: [[1, 0, 0], [0, -1, 0], [0, 0, -1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '2次旋转轴 (y)', 
+      description: '绕 y 轴旋转 180 度的操作。',
+      matrix: [[-1, 0, 0], [0, 1, 0], [0, 0, -1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '2次旋转轴 (z)', 
+      description: '绕 z 轴旋转 180 度的操作。',
+      matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
 
     // Mirror planes
-    ops.push({ name: 'Mirror (xy)', matrix: [[1, 0, 0], [0, 1, 0], [0, 0, -1]], translation: [0, 0, 0] });
-    ops.push({ name: 'Mirror (yz)', matrix: [[-1, 0, 0], [0, 1, 0], [0, 0, 1]], translation: [0, 0, 0] });
-    ops.push({ name: 'Mirror (xz)', matrix: [[1, 0, 0], [0, -1, 0], [0, 0, 1]], translation: [0, 0, 0] });
+    ops.push({ 
+      name: '镜面 (xy)', 
+      description: '以 xy 平面为镜面的镜像操作，z 坐标变号。',
+      matrix: [[1, 0, 0], [0, 1, 0], [0, 0, -1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '镜面 (yz)', 
+      description: '以 yz 平面为镜面的镜像操作，x 坐标变号。',
+      matrix: [[-1, 0, 0], [0, 1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '镜面 (xz)', 
+      description: '以 xz 平面为镜面的镜像操作，y 坐标变号。',
+      matrix: [[1, 0, 0], [0, -1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
 
     // 3-fold rotations around body diagonals
-    ops.push({ name: 'C3 (111)', matrix: [[0, 0, 1], [1, 0, 0], [0, 1, 0]], translation: [0, 0, 0] });
+    ops.push({ 
+      name: '3次旋转轴 (111)', 
+      description: '绕体对角线 [111] 旋转 120 度的操作。',
+      matrix: [[0, 0, 1], [1, 0, 0], [0, 1, 0]], 
+      translation: [0, 0, 0] 
+    });
   } else if (['HCP', 'Wurtzite', 'S8'].includes(type)) {
     // Hexagonal/Octagonal symmetry - representative operations
-    ops.push({ name: 'C6 (z)', matrix: [[0.5, -0.866, 0], [0.866, 0.5, 0], [0, 0, 1]], translation: [0, 0, 0] });
-    ops.push({ name: 'C3 (z)', matrix: [[-0.5, -0.866, 0], [0.866, -0.5, 0], [0, 0, 1]], translation: [0, 0, 0] });
-    ops.push({ name: 'C2 (z)', matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, 1]], translation: [0, 0, 0] });
-    ops.push({ name: 'Mirror (xy)', matrix: [[1, 0, 0], [0, 1, 0], [0, 0, -1]], translation: [0, 0, 0] });
+    ops.push({ 
+      name: '6次旋转轴 (z)', 
+      description: '绕 z 轴旋转 60 度的操作。',
+      matrix: [[0.5, -0.866, 0], [0.866, 0.5, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '3次旋转轴 (z)', 
+      description: '绕 z 轴旋转 120 度的操作。',
+      matrix: [[-0.5, -0.866, 0], [0.866, -0.5, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '2次旋转轴 (z)', 
+      description: '绕 z 轴旋转 180 度的操作。',
+      matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '镜面 (xy)', 
+      description: '以 xy 平面为镜面的镜像操作。',
+      matrix: [[1, 0, 0], [0, 1, 0], [0, 0, -1]], 
+      translation: [0, 0, 0] 
+    });
   } else if (type === 'H2O') {
     // C2v symmetry
-    ops.push({ name: 'C2 (z)', matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, 1]], translation: [0, 0, 0] });
-    ops.push({ name: 'Mirror (xz)', matrix: [[1, 0, 0], [0, -1, 0], [0, 0, 1]], translation: [0, 0, 0] });
-    ops.push({ name: 'Mirror (yz)', matrix: [[-1, 0, 0], [0, 1, 0], [0, 0, 1]], translation: [0, 0, 0] });
+    ops.push({ 
+      name: '2次旋转轴 (z)', 
+      description: '绕 z 轴旋转 180 度的操作。',
+      matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '镜面 (xz)', 
+      description: '以 xz 平面为镜面的镜像操作。',
+      matrix: [[1, 0, 0], [0, -1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
+    ops.push({ 
+      name: '镜面 (yz)', 
+      description: '以 yz 平面为镜面的镜像操作。',
+      matrix: [[-1, 0, 0], [0, 1, 0], [0, 0, 1]], 
+      translation: [0, 0, 0] 
+    });
   }
 
   return ops;
@@ -550,11 +645,17 @@ export const generateCrystal = (type: LatticeType, params: LatticeParams, elemen
     bondThreshold = bondThresholdOverride;
   }
 
+  // Determine bond type based on lattice type
+  let bondType = 'covalent';
+  if (['SC', 'BCC', 'FCC', 'HCP'].includes(type)) bondType = 'metallic';
+  if (['NaCl', 'CsCl'].includes(type)) bondType = 'ionic';
+  if (['ZincBlende', 'Wurtzite', 'H2O'].includes(type)) bondType = 'polar_covalent';
+
   for (let i = 0; i < atoms.length; i++) {
     for (let j = i + 1; j < atoms.length; j++) {
       const dist = getDistance(atoms[i].position, atoms[j].position);
       if (dist > 0.1 && dist <= bondThreshold) {
-        bonds.push({ from: atoms[i].id, to: atoms[j].id });
+        bonds.push({ from: atoms[i].id, to: atoms[j].id, type: bondType });
       }
     }
   }

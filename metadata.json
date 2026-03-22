@@ -1,5 +1,5 @@
 {
-  "name": "CrystalStructure Lab",
-  "description": "An interactive 3D crystal structure visualizer and crystallographic calculator.",
+  "name": "晶体结构实验室 (CrystalStructure Lab)",
+  "description": "一个交互式 3D 晶体结构可视化工具和晶体学计算器。",
   "requestFramePermissions": []
 }

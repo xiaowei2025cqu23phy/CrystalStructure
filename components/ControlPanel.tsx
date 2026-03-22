@@ -55,14 +55,14 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-stone-900 font-serif font-semibold">
           <Bookmark size={18} className="text-nobel-gold" />
-          <h3>Material Presets</h3>
+          <h3>材料预设</h3>
         </div>
         <select 
           onChange={(e) => handlePresetChange(e.target.value)}
           className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-nobel-gold/20"
           defaultValue=""
         >
-          <option value="" disabled>Select a material...</option>
+          <option value="" disabled>选择材料...</option>
           {MATERIAL_PRESETS.map((p) => (
             <option key={p.name} value={p.name}>{p.name}</option>
           ))}
@@ -73,16 +73,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-stone-900 font-serif font-semibold">
           <Layers size={18} className="text-nobel-gold" />
-          <h3>Lattice System</h3>
+          <h3>晶格系统</h3>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {(['SC', 'BCC', 'FCC', 'Diamond', 'NaCl', 'CsCl', 'HCP', 'ZincBlende', 'Wurtzite'] as LatticeType[]).map((t) => (
             <button
               key={t}
-              onClick={() => {
-                setType(t);
-                setSecondaryElement(undefined);
-              }}
+              onClick={() => setType(t)}
               className={`px-3 py-2 text-sm rounded-lg border transition-all ${
                 type === t 
                 ? 'bg-nobel-gold text-white border-nobel-gold shadow-md' 
@@ -96,23 +93,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
         <div className="flex items-center gap-2 mt-6 mb-4 text-stone-900 font-serif font-semibold">
           <Layers size={18} className="text-nobel-gold" />
-          <h3>Molecular Structures</h3>
+          <h3>分子结构</h3>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {(['P4', 'S8', 'P4S3', 'P4S10', 'C60', 'H2O', 'CH4'] as LatticeType[]).map((t) => (
             <button
               key={t}
-              onClick={() => {
-                setType(t);
-                // Auto-set elements for molecules
-                if (t === 'P4') { setElement('P'); setSecondaryElement(undefined); }
-                if (t === 'S8') { setElement('S'); setSecondaryElement(undefined); }
-                if (t === 'P4S3') { setElement('P'); setSecondaryElement('S'); }
-                if (t === 'P4S10') { setElement('P'); setSecondaryElement('S'); }
-                if (t === 'C60') { setElement('C'); setSecondaryElement(undefined); }
-                if (t === 'H2O') { setElement('O'); setSecondaryElement('H'); }
-                if (t === 'CH4') { setElement('C'); setSecondaryElement('H'); }
-              }}
+              onClick={() => setType(t)}
               className={`px-3 py-2 text-sm rounded-lg border transition-all ${
                 type === t 
                 ? 'bg-nobel-gold text-white border-nobel-gold shadow-md' 
@@ -129,7 +116,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-stone-900 font-serif font-semibold">
           <AtomIcon size={18} className="text-nobel-gold" />
-          <h3>Element</h3>
+          <h3>元素</h3>
         </div>
         <div className="space-y-3">
           <div className="flex items-center gap-3">
@@ -161,7 +148,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <span className="text-sm text-stone-600 font-medium">
                   {ELEMENTS[secondaryElement]?.name} ({secondaryElement})
                 </span>
-                <span className="text-[10px] text-stone-400 font-bold uppercase">Secondary Species</span>
+                <span className="text-[10px] text-stone-400 font-bold uppercase">次要物种</span>
               </div>
             </div>
           )}
@@ -172,7 +159,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-stone-900 font-serif font-semibold">
           <Settings size={18} className="text-nobel-gold" />
-          <h3>Lattice Parameters</h3>
+          <h3>晶格参数</h3>
         </div>
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-4">
@@ -207,7 +194,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         </div>
         
         <div className="mt-6 flex items-center justify-between">
-          <span className="text-xs text-stone-500 font-medium uppercase tracking-wider">Show Unit Cell</span>
+          <span className="text-xs text-stone-500 font-medium uppercase tracking-wider">显示晶胞</span>
           <button 
             onClick={() => setShowUnitCell(!showUnitCell)}
             className={`w-10 h-5 rounded-full transition-colors relative ${showUnitCell ? 'bg-nobel-gold' : 'bg-stone-200'}`}
@@ -217,7 +204,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         </div>
 
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-xs text-stone-500 font-medium uppercase tracking-wider">Show Bonds</span>
+          <span className="text-xs text-stone-500 font-medium uppercase tracking-wider">显示化学键</span>
           <button 
             onClick={() => setShowBonds(!showBonds)}
             className={`w-10 h-5 rounded-full transition-colors relative ${showBonds ? 'bg-nobel-gold' : 'bg-stone-200'}`}
@@ -229,12 +216,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         {showBonds && (
           <div className="mt-6 pt-4 border-t border-stone-100">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Bonding Threshold (Å)</span>
+              <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">成键阈值 (Å)</span>
               <button 
                 onClick={() => setBondThreshold(undefined)}
                 className="text-[10px] text-nobel-gold hover:underline font-bold uppercase tracking-widest"
               >
-                Reset
+                重置
               </button>
             </div>
             <div className="flex items-center gap-4">
@@ -254,11 +241,11 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <section className="bg-stone-900 p-6 rounded-2xl border border-stone-800 shadow-xl text-white">
         <div className="flex items-center gap-2 mb-6 text-white font-serif font-semibold">
           <Calculator size={18} className="text-nobel-gold" />
-          <h3>Crystallographic Data</h3>
+          <h3>晶体学数据</h3>
         </div>
         <div className="space-y-6">
           <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Cell Volume</span>
+            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">晶胞体积</span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl font-serif text-nobel-gold">{volume.toFixed(2)}</span>
               <span className="text-xs text-stone-500 font-mono">Å³</span>
@@ -266,7 +253,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           </div>
           
           <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Theoretical Density</span>
+            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">理论密度</span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl font-serif text-nobel-gold">{density.toFixed(3)}</span>
               <span className="text-xs text-stone-500 font-mono">g/cm³</span>
@@ -274,7 +261,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Packing Fraction</span>
+            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">空间利用率</span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl font-serif text-nobel-gold">{(packingFraction * 100).toFixed(1)}</span>
               <span className="text-xs text-stone-500 font-mono">%</span>
@@ -293,25 +280,28 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-stone-900 font-serif font-semibold">
           <ShieldCheck size={18} className="text-nobel-gold" />
-          <h3>Symmetry Operations</h3>
+          <h3>对称操作</h3>
         </div>
         <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
           {symmetry.map((op, idx) => (
             <div 
               key={idx} 
-              onClick={() => setExpandedOpIndex(expandedOpIndex === idx ? null : idx)}
-              className={`flex flex-col p-3 rounded-xl border transition-all cursor-pointer ${
+              onClick={() => setExpandedOpIndex(idx)}
+              className={`flex flex-col p-3 rounded-xl border transition-all cursor-pointer relative overflow-hidden ${
                 expandedOpIndex === idx 
-                ? 'bg-white border-nobel-gold shadow-md ring-1 ring-nobel-gold/20' 
+                ? 'bg-nobel-gold/5 border-nobel-gold shadow-md ring-2 ring-nobel-gold/10' 
                 : 'bg-stone-50 border-stone-100 hover:border-stone-300'
               }`}
             >
+              {expandedOpIndex === idx && (
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-nobel-gold" />
+              )}
               <div className="flex items-center justify-between mb-2">
                 <span className={`text-xs font-bold tracking-tight transition-colors ${expandedOpIndex === idx ? 'text-nobel-gold' : 'text-stone-800'}`}>
                   {op.name}
                 </span>
                 <span className="text-[9px] text-stone-400 font-bold uppercase tracking-widest">
-                  {expandedOpIndex === idx ? 'Detailed View' : 'Matrix'}
+                  {expandedOpIndex === idx ? '详细视图' : '矩阵'}
                 </span>
               </div>
               
@@ -333,7 +323,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
                 {expandedOpIndex === idx && (
                   <div className="w-full pt-3 border-t border-stone-100 animate-in fade-in slide-in-from-top-1 duration-200">
-                    <span className="text-[9px] text-stone-400 font-bold uppercase tracking-widest mb-3 block text-center">Translation Vector (t)</span>
+                    {op.description && (
+                      <p className="text-[11px] text-stone-600 mb-4 leading-relaxed bg-stone-50 p-2 rounded-lg border border-stone-100">
+                        {op.description}
+                      </p>
+                    )}
+                    <span className="text-[9px] text-stone-400 font-bold uppercase tracking-widest mb-3 block text-center">平移矢量 (t)</span>
                     <div className="flex justify-center gap-6">
                       {op.translation.map((val, i) => (
                         <div key={i} className="flex flex-col items-center gap-1">
@@ -356,7 +351,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-stone-900 font-serif font-semibold">
           <Download size={18} className="text-nobel-gold" />
-          <h3>Export Visualization</h3>
+          <h3>导出可视化</h3>
         </div>
         <div className="flex flex-col gap-3">
           <button 
@@ -368,8 +363,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <ImageIcon size={20} />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold">PNG Image</span>
-                <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Raster • High Quality</span>
+                <span className="text-sm font-bold">PNG 图像</span>
+                <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">位图 • 高质量</span>
               </div>
             </div>
             <Download size={16} className="text-stone-300 group-hover:text-nobel-gold transition-colors" />
@@ -384,8 +379,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <FileCode size={20} />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold">SVG Vector</span>
-                <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">Scalable • Research Ready</span>
+                <span className="text-sm font-bold">SVG 矢量图</span>
+                <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">可缩放 • 科研级</span>
               </div>
             </div>
             <Download size={16} className="text-stone-500 group-hover:text-nobel-gold transition-colors" />
@@ -398,7 +393,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         <div className="flex items-start gap-3">
           <Info size={16} className="text-stone-400 mt-0.5 shrink-0" />
           <p className="text-xs text-stone-500 leading-relaxed italic">
-            Calculations assume ideal hard-sphere model for atoms. Real density may vary due to temperature, defects, and non-spherical electron clouds.
+            计算基于理想硬球模型。由于温度、缺陷和非球形电子云的影响，实际密度可能会有所不同。
           </p>
         </div>
       </section>

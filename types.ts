@@ -25,10 +25,12 @@ export interface Atom {
 export interface Bond {
   from: string;
   to: string;
+  type?: string;
 }
 
 export interface SymmetryOperation {
   name: string;
+  description?: string;
   matrix: number[][]; // 3x3 matrix
   translation: [number, number, number];
 }
