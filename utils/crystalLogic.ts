@@ -6,51 +6,78 @@
 import { LatticeType, LatticeParams, Atom, Bond, ElementInfo, SymmetryOperation } from '../types';
 
 export const ELEMENTS: Record<string, ElementInfo> = {
-  'H': { symbol: 'H', name: '氢', radius: 0.37, color: '#FFFFFF', atomicWeight: 1.008 },
-  'He': { symbol: 'He', name: '氦', radius: 0.32, color: '#D9FFFF', atomicWeight: 4.0026 },
-  'Li': { symbol: 'Li', name: '锂', radius: 1.34, color: '#CC80FF', atomicWeight: 6.94 },
-  'Be': { symbol: 'Be', name: '铍', radius: 0.90, color: '#C2FF00', atomicWeight: 9.0122 },
-  'B': { symbol: 'B', name: '硼', radius: 0.82, color: '#FFB5B5', atomicWeight: 10.81 },
-  'C': { symbol: 'C', name: '碳', radius: 0.77, color: '#909090', atomicWeight: 12.011 },
-  'N': { symbol: 'N', name: '氮', radius: 0.75, color: '#3050F8', atomicWeight: 14.007 },
-  'O': { symbol: 'O', name: '氧', radius: 0.73, color: '#FF0D0D', atomicWeight: 15.999 },
-  'F': { symbol: 'F', name: '氟', radius: 0.71, color: '#90E050', atomicWeight: 18.998 },
-  'Ne': { symbol: 'Ne', name: '氖', radius: 0.69, color: '#B3E3F5', atomicWeight: 20.180 },
-  'Na': { symbol: 'Na', name: '钠', radius: 1.54, color: '#AB5CF2', atomicWeight: 22.990 },
-  'Mg': { symbol: 'Mg', name: '镁', radius: 1.30, color: '#8AFF00', atomicWeight: 24.305 },
-  'Al': { symbol: 'Al', name: '铝', radius: 1.18, color: '#BFA6A6', atomicWeight: 26.982 },
-  'Si': { symbol: 'Si', name: '硅', radius: 1.11, color: '#F0C8A0', atomicWeight: 28.085 },
-  'P': { symbol: 'P', name: '磷', radius: 1.06, color: '#FF8000', atomicWeight: 30.974 },
-  'S': { symbol: 'S', name: '硫', radius: 1.02, color: '#FFFF30', atomicWeight: 32.06 },
-  'Cl': { symbol: 'Cl', name: '氯', radius: 0.99, color: '#1FF01F', atomicWeight: 35.45 },
-  'Ar': { symbol: 'Ar', name: '氩', radius: 0.97, color: '#80D1E3', atomicWeight: 39.948 },
-  'K': { symbol: 'K', name: '钾', radius: 1.96, color: '#8F40D4', atomicWeight: 39.098 },
-  'Ca': { symbol: 'Ca', name: '钙', radius: 1.74, color: '#3DFF00', atomicWeight: 40.078 },
-  'Fe': { symbol: 'Fe', name: '铁', radius: 1.25, color: '#E06633', atomicWeight: 55.845 },
-  'Cu': { symbol: 'Cu', name: '铜', radius: 1.28, color: '#C88033', atomicWeight: 63.546 },
-  'Au': { symbol: 'Au', name: '金', radius: 1.44, color: '#FFD123', atomicWeight: 196.97 },
-  'Ag': { symbol: 'Ag', name: '银', radius: 1.44, color: '#C0C0C0', atomicWeight: 107.87 },
-  'Pt': { symbol: 'Pt', name: '铂', radius: 1.39, color: '#D0D0E0', atomicWeight: 195.08 },
-  'W': { symbol: 'W', name: '钨', radius: 1.37, color: '#2196F3', atomicWeight: 183.84 },
-  'Cr': { symbol: 'Cr', name: '铬', radius: 1.25, color: '#8A99B2', atomicWeight: 51.996 },
-  'Mo': { symbol: 'Mo', name: '钼', radius: 1.36, color: '#545B68', atomicWeight: 95.95 },
-  'Ta': { symbol: 'Ta', name: '钽', radius: 1.43, color: '#4DA6FF', atomicWeight: 180.95 },
-  'Ni': { symbol: 'Ni', name: '镍', radius: 1.24, color: '#50EBAD', atomicWeight: 58.693 },
-  'Pb': { symbol: 'Pb', name: '铅', radius: 1.75, color: '#575961', atomicWeight: 207.2 },
-  'Ge': { symbol: 'Ge', name: '锗', radius: 1.22, color: '#668F8F', atomicWeight: 72.63 },
-  'Sn': { symbol: 'Sn', name: '锡', radius: 1.40, color: '#667878', atomicWeight: 118.71 },
-  'Zn': { symbol: 'Zn', name: '锌', radius: 1.31, color: '#7D80B2', atomicWeight: 65.38 },
-  'Ti': { symbol: 'Ti', name: '钛', radius: 1.45, color: '#BFC2C7', atomicWeight: 47.867 },
-  'Cd': { symbol: 'Cd', name: '镉', radius: 1.48, color: '#FFD98F', atomicWeight: 112.41 },
-  'Ga': { symbol: 'Ga', name: '镓', radius: 1.22, color: '#C28F8F', atomicWeight: 69.723 },
-  'As': { symbol: 'As', name: '砷', radius: 1.19, color: '#BD80FF', atomicWeight: 74.922 },
-  'In': { symbol: 'In', name: '铟', radius: 1.44, color: '#A67573', atomicWeight: 114.82 },
-  'Sb': { symbol: 'Sb', name: '锑', radius: 1.38, color: '#9E63B5', atomicWeight: 121.76 },
-  'Cs': { symbol: 'Cs', name: '铯', radius: 2.65, color: '#57178F', atomicWeight: 132.91 },
-  'Tl': { symbol: 'Tl', name: '铊', radius: 1.70, color: '#A6544D', atomicWeight: 204.38 },
-  'Po': { symbol: 'Po', name: '钋', radius: 1.68, color: '#AB5C00', atomicWeight: 209 },
-  'Br': { symbol: 'Br', name: '溴', radius: 1.14, color: '#A62929', atomicWeight: 79.904 },
-  'I': { symbol: 'I', name: '碘', radius: 1.33, color: '#940094', atomicWeight: 126.90 },
+  'H': { symbol: 'H', name: '氢', radius: 0.37, color: '#FFFFFF', atomicWeight: 1.008, atomicNumber: 1, electronegativity: 2.20, electronConfiguration: '1s¹', row: 1, column: 1, category: '非金属' },
+  'He': { symbol: 'He', name: '氦', radius: 0.32, color: '#D9FFFF', atomicWeight: 4.0026, atomicNumber: 2, electronegativity: undefined, electronConfiguration: '1s²', row: 1, column: 18, category: '稀有气体' },
+  'Li': { symbol: 'Li', name: '锂', radius: 1.34, color: '#CC80FF', atomicWeight: 6.94, atomicNumber: 3, electronegativity: 0.98, electronConfiguration: '[He] 2s¹', row: 2, column: 1, category: '碱金属' },
+  'Be': { symbol: 'Be', name: '铍', radius: 0.90, color: '#C2FF00', atomicWeight: 9.0122, atomicNumber: 4, electronegativity: 1.57, electronConfiguration: '[He] 2s²', row: 2, column: 2, category: '碱土金属' },
+  'B': { symbol: 'B', name: '硼', radius: 0.82, color: '#FFB5B5', atomicWeight: 10.81, atomicNumber: 5, electronegativity: 2.04, electronConfiguration: '[He] 2s² 2p¹', row: 2, column: 13, category: '类金属' },
+  'C': { symbol: 'C', name: '碳', radius: 0.77, color: '#909090', atomicWeight: 12.011, atomicNumber: 6, electronegativity: 2.55, electronConfiguration: '[He] 2s² 2p²', row: 2, column: 14, category: '非金属' },
+  'N': { symbol: 'N', name: '氮', radius: 0.75, color: '#3050F8', atomicWeight: 14.007, atomicNumber: 7, electronegativity: 3.04, electronConfiguration: '[He] 2s² 2p³', row: 2, column: 15, category: '非金属' },
+  'O': { symbol: 'O', name: '氧', radius: 0.73, color: '#FF0D0D', atomicWeight: 15.999, atomicNumber: 8, electronegativity: 3.44, electronConfiguration: '[He] 2s² 2p⁴', row: 2, column: 16, category: '非金属' },
+  'F': { symbol: 'F', name: '氟', radius: 0.71, color: '#90E050', atomicWeight: 18.998, atomicNumber: 9, electronegativity: 3.98, electronConfiguration: '[He] 2s² 2p⁵', row: 2, column: 17, category: '卤素' },
+  'Ne': { symbol: 'Ne', name: '氖', radius: 0.69, color: '#B3E3F5', atomicWeight: 20.180, atomicNumber: 10, electronegativity: undefined, electronConfiguration: '[He] 2s² 2p⁶', row: 2, column: 18, category: '稀有气体' },
+  'Na': { symbol: 'Na', name: '钠', radius: 1.54, color: '#AB5CF2', atomicWeight: 22.990, atomicNumber: 11, electronegativity: 0.93, electronConfiguration: '[Ne] 3s¹', row: 3, column: 1, category: '碱金属' },
+  'Mg': { symbol: 'Mg', name: '镁', radius: 1.30, color: '#8AFF00', atomicWeight: 24.305, atomicNumber: 12, electronegativity: 1.31, electronConfiguration: '[Ne] 3s²', row: 3, column: 2, category: '碱土金属' },
+  'Al': { symbol: 'Al', name: '铝', radius: 1.18, color: '#BFA6A6', atomicWeight: 26.982, atomicNumber: 13, electronegativity: 1.61, electronConfiguration: '[Ne] 3s² 3p¹', row: 3, column: 13, category: '后过渡金属' },
+  'Si': { symbol: 'Si', name: '硅', radius: 1.11, color: '#F0C8A0', atomicWeight: 28.085, atomicNumber: 14, electronegativity: 1.90, electronConfiguration: '[Ne] 3s² 3p²', row: 3, column: 14, category: '类金属' },
+  'P': { symbol: 'P', name: '磷', radius: 1.06, color: '#FF8000', atomicWeight: 30.974, atomicNumber: 15, electronegativity: 2.19, electronConfiguration: '[Ne] 3s² 3p³', row: 3, column: 15, category: '非金属' },
+  'S': { symbol: 'S', name: '硫', radius: 1.02, color: '#FFFF30', atomicWeight: 32.06, atomicNumber: 16, electronegativity: 2.58, electronConfiguration: '[Ne] 3s² 3p⁴', row: 3, column: 16, category: '非金属' },
+  'Cl': { symbol: 'Cl', name: '氯', radius: 0.99, color: '#1FF01F', atomicWeight: 35.45, atomicNumber: 17, electronegativity: 3.16, electronConfiguration: '[Ne] 3s² 3p⁵', row: 3, column: 17, category: '卤素' },
+  'Ar': { symbol: 'Ar', name: '氩', radius: 0.97, color: '#80D1E3', atomicWeight: 39.948, atomicNumber: 18, electronegativity: undefined, electronConfiguration: '[Ne] 3s² 3p⁶', row: 3, column: 18, category: '稀有气体' },
+  'K': { symbol: 'K', name: '钾', radius: 1.96, color: '#8F40D4', atomicWeight: 39.098, atomicNumber: 19, electronegativity: 0.82, electronConfiguration: '[Ar] 4s¹', row: 4, column: 1, category: '碱金属' },
+  'Ca': { symbol: 'Ca', name: '钙', radius: 1.74, color: '#3DFF00', atomicWeight: 40.078, atomicNumber: 20, electronegativity: 1.00, electronConfiguration: '[Ar] 4s²', row: 4, column: 2, category: '碱土金属' },
+  'Sc': { symbol: 'Sc', name: '钪', radius: 1.44, color: '#E6E6E6', atomicWeight: 44.956, atomicNumber: 21, electronegativity: 1.36, electronConfiguration: '[Ar] 3d¹ 4s²', row: 4, column: 3, category: '过渡金属' },
+  'Ti': { symbol: 'Ti', name: '钛', radius: 1.45, color: '#BFC2C7', atomicWeight: 47.867, atomicNumber: 22, electronegativity: 1.54, electronConfiguration: '[Ar] 3d² 4s²', row: 4, column: 4, category: '过渡金属' },
+  'V': { symbol: 'V', name: '钒', radius: 1.34, color: '#A6A6AB', atomicWeight: 50.942, atomicNumber: 23, electronegativity: 1.63, electronConfiguration: '[Ar] 3d³ 4s²', row: 4, column: 5, category: '过渡金属' },
+  'Cr': { symbol: 'Cr', name: '铬', radius: 1.25, color: '#8A99B2', atomicWeight: 51.996, atomicNumber: 24, electronegativity: 1.66, electronConfiguration: '[Ar] 3d⁵ 4s¹', row: 4, column: 6, category: '过渡金属' },
+  'Mn': { symbol: 'Mn', name: '锰', radius: 1.27, color: '#9C7AC7', atomicWeight: 54.938, atomicNumber: 25, electronegativity: 1.55, electronConfiguration: '[Ar] 3d⁵ 4s²', row: 4, column: 7, category: '过渡金属' },
+  'Fe': { symbol: 'Fe', name: '铁', radius: 1.25, color: '#E06633', atomicWeight: 55.845, atomicNumber: 26, electronegativity: 1.83, electronConfiguration: '[Ar] 3d⁶ 4s²', row: 4, column: 8, category: '过渡金属' },
+  'Co': { symbol: 'Co', name: '钴', radius: 1.25, color: '#F090A0', atomicWeight: 58.933, atomicNumber: 27, electronegativity: 1.88, electronConfiguration: '[Ar] 3d⁷ 4s²', row: 4, column: 9, category: '过渡金属' },
+  'Ni': { symbol: 'Ni', name: '镍', radius: 1.24, color: '#50EBAD', atomicWeight: 58.693, atomicNumber: 28, electronegativity: 1.91, electronConfiguration: '[Ar] 3d⁸ 4s²', row: 4, column: 10, category: '过渡金属' },
+  'Cu': { symbol: 'Cu', name: '铜', radius: 1.28, color: '#C88033', atomicWeight: 63.546, atomicNumber: 29, electronegativity: 1.90, electronConfiguration: '[Ar] 3d¹⁰ 4s¹', row: 4, column: 11, category: '过渡金属' },
+  'Zn': { symbol: 'Zn', name: '锌', radius: 1.31, color: '#7D80B2', atomicWeight: 65.38, atomicNumber: 30, electronegativity: 1.65, electronConfiguration: '[Ar] 3d¹⁰ 4s²', row: 4, column: 12, category: '过渡金属' },
+  'Ga': { symbol: 'Ga', name: '镓', radius: 1.22, color: '#C28F8F', atomicWeight: 69.723, atomicNumber: 31, electronegativity: 1.81, electronConfiguration: '[Ar] 3d¹⁰ 4s² 4p¹', row: 4, column: 13, category: '后过渡金属' },
+  'Ge': { symbol: 'Ge', name: '锗', radius: 1.22, color: '#668F8F', atomicWeight: 72.63, atomicNumber: 32, electronegativity: 2.01, electronConfiguration: '[Ar] 3d¹⁰ 4s² 4p²', row: 4, column: 14, category: '类金属' },
+  'As': { symbol: 'As', name: '砷', radius: 1.19, color: '#BD80FF', atomicWeight: 74.922, atomicNumber: 33, electronegativity: 2.18, electronConfiguration: '[Ar] 3d¹⁰ 4s² 4p³', row: 4, column: 15, category: '类金属' },
+  'Se': { symbol: 'Se', name: '硒', radius: 1.16, color: '#FFA100', atomicWeight: 78.96, atomicNumber: 34, electronegativity: 2.55, electronConfiguration: '[Ar] 3d¹⁰ 4s² 4p⁴', row: 4, column: 16, category: '非金属' },
+  'Br': { symbol: 'Br', name: '溴', radius: 1.14, color: '#A62929', atomicWeight: 79.904, atomicNumber: 35, electronegativity: 2.96, electronConfiguration: '[Ar] 3d¹⁰ 4s² 4p⁵', row: 4, column: 17, category: '卤素' },
+  'Kr': { symbol: 'Kr', name: '氪', radius: 1.10, color: '#5CB8D1', atomicWeight: 83.798, atomicNumber: 36, electronegativity: 3.00, electronConfiguration: '[Ar] 3d¹⁰ 4s² 4p⁶', row: 4, column: 18, category: '稀有气体' },
+  'Rb': { symbol: 'Rb', name: '铷', radius: 2.11, color: '#702EB0', atomicWeight: 85.468, atomicNumber: 37, electronegativity: 0.82, electronConfiguration: '[Kr] 5s¹', row: 5, column: 1, category: '碱金属' },
+  'Sr': { symbol: 'Sr', name: '锶', radius: 1.92, color: '#00FF00', atomicWeight: 87.62, atomicNumber: 38, electronegativity: 0.95, electronConfiguration: '[Kr] 5s²', row: 5, column: 2, category: '碱土金属' },
+  'Y': { symbol: 'Y', name: '钇', radius: 1.62, color: '#94FFFF', atomicWeight: 88.906, atomicNumber: 39, electronegativity: 1.22, electronConfiguration: '[Kr] 4d¹ 5s²', row: 5, column: 3, category: '过渡金属' },
+  'Zr': { symbol: 'Zr', name: '锆', radius: 1.48, color: '#94E0E0', atomicWeight: 91.224, atomicNumber: 40, electronegativity: 1.33, electronConfiguration: '[Kr] 4d² 5s²', row: 5, column: 4, category: '过渡金属' },
+  'Nb': { symbol: 'Nb', name: '铌', radius: 1.37, color: '#73C2C9', atomicWeight: 92.906, atomicNumber: 41, electronegativity: 1.6, electronConfiguration: '[Kr] 4d⁴ 5s¹', row: 5, column: 5, category: '过渡金属' },
+  'Mo': { symbol: 'Mo', name: '钼', radius: 1.36, color: '#545B68', atomicWeight: 95.95, atomicNumber: 42, electronegativity: 2.16, electronConfiguration: '[Kr] 4d⁵ 5s¹', row: 5, column: 6, category: '过渡金属' },
+  'Tc': { symbol: 'Tc', name: '锝', radius: 1.36, color: '#3B9E9E', atomicWeight: 98, atomicNumber: 43, electronegativity: 1.9, electronConfiguration: '[Kr] 4d⁵ 5s²', row: 5, column: 7, category: '过渡金属' },
+  'Ru': { symbol: 'Ru', name: '钌', radius: 1.26, color: '#248F8F', atomicWeight: 101.07, atomicNumber: 44, electronegativity: 2.2, electronConfiguration: '[Kr] 4d⁷ 5s¹', row: 5, column: 8, category: '过渡金属' },
+  'Rh': { symbol: 'Rh', name: '铑', radius: 1.35, color: '#0A7D8C', atomicWeight: 102.91, atomicNumber: 45, electronegativity: 2.28, electronConfiguration: '[Kr] 4d⁸ 5s¹', row: 5, column: 9, category: '过渡金属' },
+  'Pd': { symbol: 'Pd', name: '钯', radius: 1.31, color: '#006985', atomicWeight: 106.42, atomicNumber: 46, electronegativity: 2.20, electronConfiguration: '[Kr] 4d¹⁰', row: 5, column: 10, category: '过渡金属' },
+  'Ag': { symbol: 'Ag', name: '银', radius: 1.44, color: '#C0C0C0', atomicWeight: 107.87, atomicNumber: 47, electronegativity: 1.93, electronConfiguration: '[Kr] 4d¹⁰ 5s¹', row: 5, column: 11, category: '过渡金属' },
+  'Cd': { symbol: 'Cd', name: '镉', radius: 1.48, color: '#FFD98F', atomicWeight: 112.41, atomicNumber: 48, electronegativity: 1.69, electronConfiguration: '[Kr] 4d¹⁰ 5s²', row: 5, column: 12, category: '过渡金属' },
+  'In': { symbol: 'In', name: '铟', radius: 1.44, color: '#A67573', atomicWeight: 114.82, atomicNumber: 49, electronegativity: 1.78, electronConfiguration: '[Kr] 4d¹⁰ 5s² 5p¹', row: 5, column: 13, category: '后过渡金属' },
+  'Sn': { symbol: 'Sn', name: '锡', radius: 1.40, color: '#667878', atomicWeight: 118.71, atomicNumber: 50, electronegativity: 1.96, electronConfiguration: '[Kr] 4d¹⁰ 5s² 5p²', row: 5, column: 14, category: '后过渡金属' },
+  'Sb': { symbol: 'Sb', name: '锑', radius: 1.38, color: '#9E63B5', atomicWeight: 121.76, atomicNumber: 51, electronegativity: 2.05, electronConfiguration: '[Kr] 4d¹⁰ 5s² 5p³', row: 5, column: 15, category: '类金属' },
+  'Te': { symbol: 'Te', name: '碲', radius: 1.35, color: '#D47A00', atomicWeight: 127.60, atomicNumber: 52, electronegativity: 2.1, electronConfiguration: '[Kr] 4d¹⁰ 5s² 5p⁴', row: 5, column: 16, category: '类金属' },
+  'I': { symbol: 'I', name: '碘', radius: 1.33, color: '#940094', atomicWeight: 126.90, atomicNumber: 53, electronegativity: 2.66, electronConfiguration: '[Kr] 4d¹⁰ 5s² 5p⁵', row: 5, column: 17, category: '卤素' },
+  'Xe': { symbol: 'Xe', name: '氙', radius: 1.30, color: '#429EB0', atomicWeight: 131.29, atomicNumber: 54, electronegativity: 2.6, electronConfiguration: '[Kr] 4d¹⁰ 5s² 5p⁶', row: 5, column: 18, category: '稀有气体' },
+  'Cs': { symbol: 'Cs', name: '铯', radius: 2.65, color: '#57178F', atomicWeight: 132.91, atomicNumber: 55, electronegativity: 0.79, electronConfiguration: '[Xe] 6s¹', row: 6, column: 1, category: '碱金属' },
+  'Ba': { symbol: 'Ba', name: '钡', radius: 2.15, color: '#00C900', atomicWeight: 137.33, atomicNumber: 56, electronegativity: 0.89, electronConfiguration: '[Xe] 6s²', row: 6, column: 2, category: '碱土金属' },
+  'La': { symbol: 'La', name: '镧', radius: 1.87, color: '#70D4FF', atomicWeight: 138.91, atomicNumber: 57, electronegativity: 1.1, electronConfiguration: '[Xe] 5d¹ 6s²', row: 6, column: 3, category: '镧系元素' },
+  'Hf': { symbol: 'Hf', name: '铪', radius: 1.50, color: '#4DB2FF', atomicWeight: 178.49, atomicNumber: 72, electronegativity: 1.3, electronConfiguration: '[Xe] 4f¹⁴ 5d² 6s²', row: 6, column: 4, category: '过渡金属' },
+  'Ta': { symbol: 'Ta', name: '钽', radius: 1.43, color: '#4DA6FF', atomicWeight: 180.95, atomicNumber: 73, electronegativity: 1.5, electronConfiguration: '[Xe] 4f¹⁴ 5d³ 6s²', row: 6, column: 5, category: '过渡金属' },
+  'W': { symbol: 'W', name: '钨', radius: 1.37, color: '#2196F3', atomicWeight: 183.84, atomicNumber: 74, electronegativity: 2.36, electronConfiguration: '[Xe] 4f¹⁴ 5d⁴ 6s²', row: 6, column: 6, category: '过渡金属' },
+  'Re': { symbol: 'Re', name: '铼', radius: 1.35, color: '#267DAB', atomicWeight: 186.21, atomicNumber: 75, electronegativity: 1.9, electronConfiguration: '[Xe] 4f¹⁴ 5d⁵ 6s²', row: 6, column: 7, category: '过渡金属' },
+  'Os': { symbol: 'Os', name: '锇', radius: 1.26, color: '#266696', atomicWeight: 190.23, atomicNumber: 76, electronegativity: 2.2, electronConfiguration: '[Xe] 4f¹⁴ 5d⁶ 6s²', row: 6, column: 8, category: '过渡金属' },
+  'Ir': { symbol: 'Ir', name: '铱', radius: 1.27, color: '#175487', atomicWeight: 192.22, atomicNumber: 77, electronegativity: 2.2, electronConfiguration: '[Xe] 4f¹⁴ 5d⁷ 6s²', row: 6, column: 9, category: '过渡金属' },
+  'Pt': { symbol: 'Pt', name: '铂', radius: 1.39, color: '#D0D0E0', atomicWeight: 195.08, atomicNumber: 78, electronegativity: 2.28, electronConfiguration: '[Xe] 4f¹⁴ 5d⁹ 6s¹', row: 6, column: 10, category: '过渡金属' },
+  'Au': { symbol: 'Au', name: '金', radius: 1.44, color: '#FFD123', atomicWeight: 196.97, atomicNumber: 79, electronegativity: 2.54, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s¹', row: 6, column: 11, category: '过渡金属' },
+  'Hg': { symbol: 'Hg', name: '汞', radius: 1.51, color: '#B8B8D0', atomicWeight: 200.59, atomicNumber: 80, electronegativity: 2.00, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s²', row: 6, column: 12, category: '过渡金属' },
+  'Tl': { symbol: 'Tl', name: '铊', radius: 1.70, color: '#A6544D', atomicWeight: 204.38, atomicNumber: 81, electronegativity: 1.62, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹', row: 6, column: 13, category: '后过渡金属' },
+  'Pb': { symbol: 'Pb', name: '铅', radius: 1.75, color: '#575961', atomicWeight: 207.2, atomicNumber: 82, electronegativity: 2.33, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²', row: 6, column: 14, category: '后过渡金属' },
+  'Bi': { symbol: 'Bi', name: '铋', radius: 1.55, color: '#9E4FB5', atomicWeight: 208.98, atomicNumber: 83, electronegativity: 2.02, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³', row: 6, column: 15, category: '后过渡金属' },
+  'Po': { symbol: 'Po', name: '钋', radius: 1.68, color: '#AB5C00', atomicWeight: 209, atomicNumber: 84, electronegativity: 2.0, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴', row: 6, column: 16, category: '后过渡金属' },
+  'At': { symbol: 'At', name: '砹', radius: 1.45, color: '#754F45', atomicWeight: 210, atomicNumber: 85, electronegativity: 2.2, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵', row: 6, column: 17, category: '卤素' },
+  'Rn': { symbol: 'Rn', name: '氡', radius: 1.20, color: '#428296', atomicWeight: 222, atomicNumber: 86, electronegativity: undefined, electronConfiguration: '[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶', row: 6, column: 18, category: '稀有气体' },
 };
 
 import { MaterialPreset } from '../types';
@@ -281,7 +308,7 @@ export const generateSymmetryOperations = (type: LatticeType): SymmetryOperation
   return ops;
 };
 
-export const generateCrystal = (type: LatticeType, params: LatticeParams, element: string, secondaryElement?: string, bondThresholdOverride?: number): { atoms: Atom[], bonds: Bond[], symmetry: SymmetryOperation[] } => {
+export const generateCrystal = (type: LatticeType, params: LatticeParams, element: string, secondaryElement?: string, bondThresholdOverride?: number): { atoms: Atom[], bonds: Bond[], symmetry: SymmetryOperation[], primitiveVectors?: [number, number, number][] } => {
   const atoms: Atom[] = [];
   const bonds: Bond[] = [];
   const symmetry = generateSymmetryOperations(type);
@@ -660,7 +687,43 @@ export const generateCrystal = (type: LatticeType, params: LatticeParams, elemen
     }
   }
 
-  return { atoms, bonds, symmetry };
+  // Determine primitive vectors
+  let primitiveVectors: [number, number, number][] | undefined = undefined;
+  switch (type) {
+    case 'SC':
+      primitiveVectors = [[a, 0, 0], [0, b, 0], [0, 0, c]];
+      break;
+    case 'BCC':
+      primitiveVectors = [
+        [a / 2, b / 2, -c / 2],
+        [-a / 2, b / 2, c / 2],
+        [a / 2, -b / 2, c / 2]
+      ];
+      break;
+    case 'FCC':
+    case 'Diamond':
+    case 'NaCl':
+    case 'ZincBlende':
+      primitiveVectors = [
+        [0, b / 2, c / 2],
+        [a / 2, 0, c / 2],
+        [a / 2, b / 2, 0]
+      ];
+      break;
+    case 'HCP':
+    case 'Wurtzite':
+      primitiveVectors = [
+        [a, 0, 0],
+        [-a / 2, a * Math.sqrt(3) / 2, 0],
+        [0, 0, c]
+      ];
+      break;
+    case 'CsCl':
+      primitiveVectors = [[a, 0, 0], [0, b, 0], [0, 0, c]];
+      break;
+  }
+
+  return { atoms, bonds, symmetry, primitiveVectors };
 };
 
 export const calculateVolume = (params: LatticeParams): number => {

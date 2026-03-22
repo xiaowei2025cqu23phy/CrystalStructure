@@ -41,6 +41,7 @@ export interface CrystalData {
   atoms: Atom[];
   bonds: Bond[];
   symmetry: SymmetryOperation[];
+  primitiveVectors?: [number, number, number][];
 }
 
 export interface ElementInfo {
@@ -49,6 +50,12 @@ export interface ElementInfo {
   radius: number;
   color: string;
   atomicWeight: number;
+  atomicNumber: number;
+  electronegativity?: number;
+  electronConfiguration: string;
+  row: number;
+  column: number;
+  category: string;
 }
 
 export interface MaterialPreset {

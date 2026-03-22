@@ -20,6 +20,9 @@ interface LatticeViewerProps {
   type: LatticeType;
   showBonds: boolean;
   showUnitCell: boolean;
+  showPrimitiveCell?: boolean;
+  primitiveVectors?: [number, number, number][];
+  title?: string;
   onExportReady?: (exportFn: (type: 'png' | 'svg') => void) => void;
 }
 
@@ -138,6 +141,41 @@ const UnitCell: React.FC<{ params: LatticeParams, type: LatticeType }> = ({ para
   );
 };
 
+const PrimitiveCell: React.FC<{ vectors: [number, number, number][] }> = ({ vectors }) => {
+  const points = useMemo(() => {
+    if (!vectors || vectors.length < 3) return [];
+    const v1 = new THREE.Vector3(...vectors[0]);
+    const v2 = new THREE.Vector3(...vectors[1]);
+    const v3 = new THREE.Vector3(...vectors[2]);
+
+    const p0 = new THREE.Vector3(0, 0, 0);
+    const p1 = v1.clone();
+    const p2 = v1.clone().add(v2);
+    const p3 = v2.clone();
+    const p4 = v3.clone();
+    const p5 = v1.clone().add(v3);
+    const p6 = v1.clone().add(v2).add(v3);
+    const p7 = v2.clone().add(v3);
+
+    return [
+      p0, p1, p1, p2, p2, p3, p3, p0, // Bottom
+      p4, p5, p5, p6, p6, p7, p7, p4, // Top
+      p0, p4, p1, p5, p2, p6, p3, p7  // Verticals
+    ];
+  }, [vectors]);
+
+  const lineGeometry = useMemo(() => {
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    return geometry;
+  }, [points]);
+
+  return (
+    <lineSegments geometry={lineGeometry}>
+      <lineBasicMaterial color="#d4af37" linewidth={2} transparent opacity={0.8} />
+    </lineSegments>
+  );
+};
+
 const BOND_STYLES: Record<string, { color: string, radius: number, name: string }> = {
   'metallic': { color: '#94a3b8', radius: 0.04, name: '金属键' },
   'covalent': { color: '#334155', radius: 0.07, name: '共价键' },
@@ -167,7 +205,7 @@ const BondMesh: React.FC<{ from: [number, number, number], to: [number, number, 
   );
 };
 
-const Scene: React.FC<LatticeViewerProps> = ({ atoms, bonds, params, type, showBonds, showUnitCell }) => {
+const Scene: React.FC<LatticeViewerProps> = ({ atoms, bonds, params, type, showBonds, showUnitCell, showPrimitiveCell, primitiveVectors }) => {
   const groupRef = useRef<THREE.Group>(null);
 
   // Center the lattice
@@ -194,6 +232,7 @@ const Scene: React.FC<LatticeViewerProps> = ({ atoms, bonds, params, type, showB
       ))}
       {bondElements}
       {showUnitCell && <UnitCell params={params} type={type} />}
+      {showPrimitiveCell && primitiveVectors && <PrimitiveCell vectors={primitiveVectors} />}
     </group>
   );
 };
@@ -360,6 +399,13 @@ const LatticeViewer: React.FC<LatticeViewerProps> = (props) => {
 
   return (
     <div className="w-full h-full bg-stone-50 rounded-2xl overflow-hidden shadow-inner relative group border border-stone-200">
+      {props.title && (
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm border border-stone-100">
+            {props.title}
+          </span>
+        </div>
+      )}
       <Canvas shadows dpr={[1, 2]} gl={{ preserveDrawingBuffer: true }}>
         <PerspectiveCamera makeDefault position={[8, 8, 8]} fov={50} />
         <OrbitControls enableDamping dampingFactor={0.05} />

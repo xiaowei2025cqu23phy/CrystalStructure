@@ -20,6 +20,7 @@ const App: React.FC = () => {
   const [element, setElement] = useState<string>('Cu');
   const [secondaryElement, setSecondaryElement] = useState<string | undefined>(undefined);
   const [showUnitCell, setShowUnitCell] = useState(true);
+  const [showPrimitiveCell, setShowPrimitiveCell] = useState(false);
   const [showBonds, setShowBonds] = useState(true);
   const [bondThreshold, setBondThreshold] = useState<number | undefined>(undefined);
 
@@ -116,12 +117,18 @@ const App: React.FC = () => {
 
   const [showOverlays, setShowOverlays] = useState(true);
 
-  const { atoms, bonds, symmetry } = useMemo(() => 
+  const [showControlPanel, setShowControlPanel] = useState(true);
+  const [viewMode, setViewMode] = useState<'single' | 'dual'>('dual');
+
+  const isCrystal = useMemo(() => 
+    !['P4', 'S8', 'P4S3', 'P4S10', 'C60', 'H2O', 'CH4'].includes(type),
+    [type]
+  );
+
+  const { atoms, bonds, symmetry, primitiveVectors } = useMemo(() => 
     generateCrystal(type, params, element, secondaryElement, bondThreshold), 
     [type, params, element, secondaryElement, bondThreshold]
   );
-
-  const [showControlPanel, setShowControlPanel] = useState(true);
 
   return (
     <div className="min-h-screen bg-[#F9F8F4] text-stone-800 selection:bg-nobel-gold selection:text-white font-sans">
@@ -140,6 +147,25 @@ const App: React.FC = () => {
           </div>
           
           <div className="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-stone-600">
+            <div className="flex items-center bg-stone-100 p-1 rounded-full">
+              <button 
+                onClick={() => setViewMode('single')}
+                className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all ${
+                  viewMode === 'single' ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-400 hover:text-stone-600'
+                }`}
+              >
+                单窗口
+              </button>
+              <button 
+                onClick={() => setViewMode('dual')}
+                className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all ${
+                  viewMode === 'dual' ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-400 hover:text-stone-600'
+                }`}
+              >
+                双窗口
+              </button>
+            </div>
+
             <button 
               onClick={() => setShowControlPanel(!showControlPanel)}
               className={`px-4 py-2 rounded-full transition-all text-xs font-bold flex items-center gap-2 ${
@@ -176,17 +202,39 @@ const App: React.FC = () => {
       {/* Main Content */}
       <main className="pt-28 pb-12 container mx-auto px-6 h-[calc(100vh-2rem)] flex flex-col lg:flex-row gap-8">
         
-        {/* Left: 3D Viewer */}
-        <div className="flex-[2] min-h-[400px] lg:min-h-0 relative group">
-          <LatticeViewer 
-            atoms={atoms} 
-            bonds={bonds}
-            params={params} 
-            type={type}
-            showBonds={showBonds} 
-            showUnitCell={showUnitCell} 
-            onExportReady={setExportFn}
-          />
+        {/* Left: 3D Viewer Area */}
+        <div className={`flex-[2] min-h-[400px] lg:min-h-0 relative group flex gap-4 ${viewMode === 'dual' ? 'flex-col sm:flex-row' : ''}`}>
+          
+          <div className="flex-1 relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-50 shadow-inner">
+            <LatticeViewer 
+              atoms={atoms} 
+              bonds={bonds}
+              params={params} 
+              type={type}
+              showBonds={showBonds} 
+              showUnitCell={showUnitCell && isCrystal} 
+              showPrimitiveCell={showPrimitiveCell && isCrystal}
+              primitiveVectors={primitiveVectors}
+              title={isCrystal ? '晶胞视图' : '分子视图'}
+              onExportReady={setExportFn}
+            />
+          </div>
+
+          {viewMode === 'dual' && (
+            <div className="flex-1 relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-50 shadow-inner animate-in fade-in slide-in-from-right-4 duration-300">
+              <LatticeViewer 
+                atoms={atoms} 
+                bonds={bonds}
+                params={params} 
+                type={type}
+                showBonds={showBonds} 
+                showUnitCell={false} 
+                showPrimitiveCell={showPrimitiveCell && isCrystal}
+                primitiveVectors={primitiveVectors}
+                title={isCrystal ? '整体结构 (无晶胞)' : '分子结构 (自由视图)'}
+              />
+            </div>
+          )}
           
           {/* Overlay Info */}
           <div className="absolute top-6 right-6 z-10 flex flex-col gap-2 items-end">
@@ -236,6 +284,7 @@ const App: React.FC = () => {
                 element={element} setElement={setElement}
                 secondaryElement={secondaryElement} setSecondaryElement={setSecondaryElement}
                 showUnitCell={showUnitCell} setShowUnitCell={setShowUnitCell}
+                showPrimitiveCell={showPrimitiveCell} setShowPrimitiveCell={setShowPrimitiveCell}
                 showBonds={showBonds} setShowBonds={setShowBonds}
                 bondThreshold={bondThreshold} setBondThreshold={setBondThreshold}
                 symmetry={symmetry}

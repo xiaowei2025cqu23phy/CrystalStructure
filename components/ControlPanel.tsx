@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { LatticeType, LatticeParams, ElementInfo, SymmetryOperation } from '../types';
 import { ELEMENTS, MATERIAL_PRESETS, calculateVolume, calculateDensity, calculatePackingFraction } from '../utils/crystalLogic';
-import { Settings, Info, Calculator, Layers, Atom as AtomIcon, ShieldCheck, Download, Image as ImageIcon, FileCode, Bookmark } from 'lucide-react';
+import { Settings, Info, Calculator, Layers, Atom as AtomIcon, ShieldCheck, Download, Image as ImageIcon, FileCode, Bookmark, Search, Filter, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ControlPanelProps {
   type: LatticeType;
@@ -19,6 +20,8 @@ interface ControlPanelProps {
   setSecondaryElement: (element: string | undefined) => void;
   showUnitCell: boolean;
   setShowUnitCell: (show: boolean) => void;
+  showPrimitiveCell: boolean;
+  setShowPrimitiveCell: (show: boolean) => void;
   showBonds: boolean;
   setShowBonds: (show: boolean) => void;
   bondThreshold?: number;
@@ -28,9 +31,14 @@ interface ControlPanelProps {
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
-  type, setType, params, setParams, element, setElement, secondaryElement, setSecondaryElement, showUnitCell, setShowUnitCell, showBonds, setShowBonds, bondThreshold, setBondThreshold, symmetry, onExport
+  type, setType, params, setParams, element, setElement, secondaryElement, setSecondaryElement, showUnitCell, setShowUnitCell, showPrimitiveCell, setShowPrimitiveCell, showBonds, setShowBonds, bondThreshold, setBondThreshold, symmetry, onExport
 }) => {
   const [expandedOpIndex, setExpandedOpIndex] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
+  const [showPeriodicTable, setShowPeriodicTable] = useState(false);
+  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
+
   const volume = calculateVolume(params);
   const density = calculateDensity(type, params, element);
   const packingFraction = calculatePackingFraction(type, params, element);
@@ -49,8 +57,172 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     }
   };
 
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    Object.values(ELEMENTS).forEach(el => cats.add(el.category));
+    return Array.from(cats);
+  }, []);
+
+  const filteredElements = useMemo(() => {
+    return Object.entries(ELEMENTS).filter(([symbol, info]) => {
+      const matchesSearch = symbol.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                            info.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = !categoryFilter || info.category === categoryFilter;
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, categoryFilter]);
+
   return (
     <div className="flex flex-col gap-6 h-full overflow-y-auto pr-2 custom-scrollbar">
+      {/* Periodic Table Modal/Section */}
+      <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2 text-stone-900 font-serif font-semibold">
+            <AtomIcon size={18} className="text-nobel-gold" />
+            <h3>元素周期表</h3>
+          </div>
+          <button 
+            onClick={() => setShowPeriodicTable(!showPeriodicTable)}
+            className="text-[10px] font-bold uppercase tracking-widest text-nobel-gold hover:underline"
+          >
+            {showPeriodicTable ? '收起表格' : '展开表格'}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {showPeriodicTable && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-col gap-4 mb-6">
+                <div className="relative">
+                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                  <input 
+                    type="text"
+                    placeholder="搜索元素符号或名称..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-nobel-gold/20"
+                  />
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  <button 
+                    onClick={() => setCategoryFilter(null)}
+                    className={`px-2 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border transition-all ${!categoryFilter ? 'bg-stone-800 text-white border-stone-800' : 'bg-stone-50 text-stone-500 border-stone-200 hover:border-stone-400'}`}
+                  >
+                    全部
+                  </button>
+                  {categories.map(cat => (
+                    <button 
+                      key={cat}
+                      onClick={() => setCategoryFilter(cat)}
+                      className={`px-2 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border transition-all ${categoryFilter === cat ? 'bg-nobel-gold text-white border-nobel-gold' : 'bg-stone-50 text-stone-500 border-stone-200 hover:border-stone-400'}`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative overflow-x-auto pb-4 custom-scrollbar">
+                <div 
+                  className="grid gap-1" 
+                  style={{ 
+                    gridTemplateColumns: 'repeat(18, minmax(30px, 1fr))',
+                    gridTemplateRows: 'repeat(6, 40px)'
+                  }}
+                >
+                  {Object.entries(ELEMENTS).map(([symbol, info]) => {
+                    const isFiltered = filteredElements.some(([s]) => s === symbol);
+                    const isSelected = element === symbol;
+                    
+                    return (
+                      <button
+                        key={symbol}
+                        onClick={() => {
+                          setElement(symbol);
+                          setSecondaryElement(undefined);
+                        }}
+                        onMouseEnter={() => setHoveredElement(symbol)}
+                        onMouseLeave={() => setHoveredElement(null)}
+                        style={{ 
+                          gridColumn: info.column, 
+                          gridRow: info.row,
+                          backgroundColor: isSelected ? info.color : (isFiltered ? `${info.color}22` : '#f5f5f4'),
+                          borderColor: isSelected ? info.color : (isFiltered ? info.color : '#e5e5e4'),
+                          color: isSelected ? (['#FFFFFF', '#D9FFFF', '#FFFF30'].includes(info.color) ? '#000' : '#fff') : (isFiltered ? '#444' : '#ccc')
+                        }}
+                        className={`flex flex-col items-center justify-center rounded border text-[10px] font-bold transition-all hover:scale-110 hover:z-10 shadow-sm ${!isFiltered ? 'grayscale opacity-30 pointer-events-none' : ''}`}
+                      >
+                        <span className="text-[8px] opacity-70 leading-none">{info.atomicNumber}</span>
+                        <span className="leading-tight">{symbol}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {(hoveredElement || element) && (
+                  <motion.div 
+                    key={hoveredElement || element}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="mt-4 p-4 bg-stone-900 rounded-xl border border-stone-800 shadow-xl text-white"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div 
+                          className="w-10 h-10 rounded-lg flex items-center justify-center text-lg font-bold shadow-inner"
+                          style={{ 
+                            backgroundColor: ELEMENTS[hoveredElement || element].color, 
+                            color: ['#FFFFFF', '#D9FFFF', '#FFFF30'].includes(ELEMENTS[hoveredElement || element].color) ? '#000' : '#fff' 
+                          }}
+                        >
+                          {hoveredElement || element}
+                        </div>
+                        <div className="flex flex-col">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-serif font-bold">{ELEMENTS[hoveredElement || element].name}</span>
+                            {!hoveredElement && (
+                              <span className="text-[8px] bg-nobel-gold/20 text-nobel-gold px-1 rounded uppercase tracking-tighter">已选</span>
+                            )}
+                          </div>
+                          <span className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">{ELEMENTS[hoveredElement || element].category}</span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-2xl font-serif text-nobel-gold leading-none block">{ELEMENTS[hoveredElement || element].atomicNumber}</span>
+                        <span className="text-[9px] text-stone-500 font-bold uppercase">原子序数</span>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 pt-3 border-t border-stone-800">
+                      <div className="flex flex-col">
+                        <span className="text-[9px] text-stone-500 font-bold uppercase tracking-widest">原子量</span>
+                        <span className="text-xs font-mono">{ELEMENTS[hoveredElement || element].atomicWeight.toFixed(3)} u</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-[9px] text-stone-500 font-bold uppercase tracking-widest">电负性</span>
+                        <span className="text-xs font-mono">{ELEMENTS[hoveredElement || element].electronegativity?.toFixed(2) || 'N/A'}</span>
+                      </div>
+                      <div className="flex flex-col col-span-2 pt-2 border-t border-stone-800/50">
+                        <span className="text-[9px] text-stone-500 font-bold uppercase tracking-widest">电子排布</span>
+                        <span className="text-xs font-mono text-nobel-gold">{ELEMENTS[hoveredElement || element].electronConfiguration || 'N/A'}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
+
       {/* Material Presets */}
       <section className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
         <div className="flex items-center gap-2 mb-4 text-stone-900 font-serif font-semibold">
@@ -137,6 +309,17 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               ))}
             </select>
           </div>
+
+          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-stone-100">
+            <div className="flex flex-col">
+              <span className="text-[9px] text-stone-400 font-bold uppercase tracking-widest">原子序数</span>
+              <span className="text-sm font-serif font-bold text-stone-900">{ELEMENTS[element].atomicNumber}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[9px] text-stone-400 font-bold uppercase tracking-widest">电子排布</span>
+              <span className="text-xs font-mono text-nobel-gold">{ELEMENTS[element].electronConfiguration || 'N/A'}</span>
+            </div>
+          </div>
           
           {secondaryElement && (
             <div className="flex items-center gap-3 pt-2 border-t border-stone-100">
@@ -194,12 +377,22 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         </div>
         
         <div className="mt-6 flex items-center justify-between">
-          <span className="text-xs text-stone-500 font-medium uppercase tracking-wider">显示晶胞</span>
+          <span className="text-xs text-stone-500 font-medium uppercase tracking-wider">显示晶胞 (Unit Cell)</span>
           <button 
             onClick={() => setShowUnitCell(!showUnitCell)}
             className={`w-10 h-5 rounded-full transition-colors relative ${showUnitCell ? 'bg-nobel-gold' : 'bg-stone-200'}`}
           >
             <div className={`absolute top-1 w-3 h-3 rounded-full bg-white transition-all ${showUnitCell ? 'left-6' : 'left-1'}`} />
+          </button>
+        </div>
+
+        <div className="mt-4 flex items-center justify-between">
+          <span className="text-xs text-stone-500 font-medium uppercase tracking-wider">显示原胞 (Primitive Cell)</span>
+          <button 
+            onClick={() => setShowPrimitiveCell(!showPrimitiveCell)}
+            className={`w-10 h-5 rounded-full transition-colors relative ${showPrimitiveCell ? 'bg-nobel-gold' : 'bg-stone-200'}`}
+          >
+            <div className={`absolute top-1 w-3 h-3 rounded-full bg-white transition-all ${showPrimitiveCell ? 'left-6' : 'left-1'}`} />
           </button>
         </div>
 
